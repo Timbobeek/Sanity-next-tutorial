@@ -2,17 +2,11 @@
 
 import { Project } from "@/types/project";
 import { createClient, groq } from "next-sanity";
+import clientConfig from "./schemas/config/client-config";
+
 
 export async function getProjects(): Promise<Project[]> {
-  // use query language GROQ 
-  const client = createClient({
-    //with client, we can read data from studio
-    projectId: "vr6otv1n",
-    dataset: "production",
-    apiVersion: "2023-09-26",
-  });
-
-  return client.fetch(
+  return createClient(clientConfig).fetch(
     //groq query
     groq`*[_type == "project"]{
             _id,
@@ -27,14 +21,9 @@ export async function getProjects(): Promise<Project[]> {
 }
 
 export async function getProject(slug: string): Promise<Project> {
-  const client = createClient({
-    //with client, we can read data from studio
-    projectId: "vr6otv1n",
-    dataset: "production",
-    apiVersion: "2023-09-26",
-  });
 
-  return client.fetch(
+
+  return createClient(clientConfig).fetch(
     //groq query
     groq`*[_type == "project" && slug.current == $slug][0]{
       _id,
