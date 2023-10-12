@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import './globals.css'
+import '../globals.css'
 import type { Metadata } from 'next'
 
 //this page changes stuff for ALL pages
