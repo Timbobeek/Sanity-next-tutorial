@@ -1,25 +1,18 @@
 /** @type {import('next').NextConfig} */
 
-const { PHASE_DEVELOPMENT_SERVER } = require('next/constants')
-
-const nextConfig = (phase, { defaultConfig }) => {
-  if (phase === PHASE_DEVELOPMENT_SERVER) {
-    return {
-      headers: () => [
-        {
-          source: '/',
-          headers: [
-            {
-              key: 'Cache-Control',
-              value: 'no-store',
-            },
-          ],
-        },
-      ],
-    }
+const nextConfig = {
+  experimental: {
+    appDir: true,
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'cdn.sanity.io',
+        port: '',
+      },
+    ],
   }
-
-  return {}
 }
 
 module.exports = nextConfig
